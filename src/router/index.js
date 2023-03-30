@@ -1,23 +1,27 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import PickUp from '../views/PickUp.vue'
+import Login from '../views/Login.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'PickUp',
-    component: PickUp
-  },
-  {
-    path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: Login
   },
   {
     path: '/confirmationInfo',
     name: 'confirmationInfo',
     component: () => import(/* webpackChunkName: "about" */ '../views/ConfirmationInfo.vue')
   },
-
+  {
+    path: '/pickUp',
+    name: 'pickUp',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PickUp.vue')
+  },
+  {
+    path: '/hall',
+    name: 'hall',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Hall.vue')
+  },
 ]
 
 const router = createRouter({
