@@ -1,10 +1,11 @@
 <template>
     <nav>
-        <h1>确认信息</h1>
+        <h1>{{ props.title }}</h1>
     </nav>
 </template>
 
 <script setup>
+const props = defineProps(['title'])
 
 </script>
 <style scoped>

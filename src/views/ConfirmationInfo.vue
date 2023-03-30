@@ -1,7 +1,7 @@
 <!-- ConfirmationInfo 确认信息页 -->
 <template>
     <div id="Bg">
-       <nav/>
+        <Nav :title="'确认信息'"/>
         <main>
             <div class="confirmationInfo_from">
                 <div>
@@ -37,7 +37,7 @@
     </div>
 </template>
 <script setup>
-import Nav from "../components/Nav.vue"
+import Nav from '../components/Nav.vue'
 
 </script>
 
