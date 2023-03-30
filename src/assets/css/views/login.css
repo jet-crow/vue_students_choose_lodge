@@ -1,66 +1,91 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-/* main Start */
-main{
-    
+.bg {
+    height: 100vh;
     width: 100vw;
-    margin-top: 10vh;
+    padding-top: 10vh;
+    background: url(../../images/loginBg.jpg);
+    background-repeat: no-repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto 100vh;
+    vertical-align: middle;
+
+    position: relative;
+}
+
+.bg::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    filter: blur(1px);
+    background: inherit;
+    z-index: 1;
+}
+
+/* main Start */
+main {
+    width: 100vw;
+
     padding: 0 8vw;
     /* background-color: aquamarine; */
 }
 
-.title{
+.title {
     /* background-color: palevioletred; */
 }
 
-.title span{
+.title span {
     font-size: 1.5em;
 }
 
-.title h1{
+.title h1 {
     font-size: 2em;
     font-weight: 900;
 }
 
-.login_from{
+.login_from {
     /* background-color: cadetblue; */
     padding-top: 10vh;
 }
 
 .login_from .username,
-.login_from .password{
+.login_from .password {
     height: 10vh;
     width: 100%;
     /* background-color: skyblue; */
     /* border: 1px solid red; */
 }
 
-.login_from input{
+.login_from input {
     display: block;
     width: 100%;
     height: 5vh;
     border-radius: 5vh;
     border-style: none;
     padding-left: 5vw;
-    outline:none;
+    outline: none;
     font-size: 1em;
     background-color: rgb(249, 247, 247);
 }
 
-.login_from input:focus{
+.login_from input:focus {
     border-style: none;
     outline: none;
 }
 
-.login_from input::placeholder{
+.login_from input::placeholder {
     color: #888;
 }
 
 .login_from .username span,
-.login_from .password span{
+.login_from .password span {
     display: block;
     padding-left: 5vw;
     color: #c81623;
@@ -69,10 +94,11 @@ main{
 
 }
 
-.login_from .submit{
+.login_from .submit {
     padding-top: 4vh;
 }
-#Submit{
+
+#Submit {
     width: 100%;
     height: 5vh;
     border-radius: 5vh;
@@ -80,9 +106,10 @@ main{
     text-align: center;
     font-size: 1.4em;
     font-weight: 700;
-    color:#EEE;
+    color: #EEE;
     /* background-color: #1C4C8C; */
-    background-image: linear-gradient(to right, #4888db , #1864c9, #1C4C8C);
-    
+    background-image: linear-gradient(to right, #4888db, #1864c9, #1C4C8C);
+
 }
+
 /* main End */
