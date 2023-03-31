@@ -35,7 +35,11 @@
                     </template>
 
                     <template v-else>
-                        no
+                        <p class="user_info_left">{{ item.id + 1 }}</p>
+                        <div class="user_info_right">
+                            <p>加入</p>
+                            <p>Pick UP</p>
+                        </div>
                     </template>
                 </li>
             </ul>
@@ -54,16 +58,16 @@ const roomData = reactive([
     {
         id: 0,
         user: {
-            name: "啊我死",
-            info: "asda",
-            tags: ["篮球", "of"]
+            name: "费玉清",
+            info: "你滚我喜欢送你滚我喜欢送你滚我喜欢送你滚",
+            tags: ["篮球", "爱睡觉","不让舍友睡觉","睡觉的时候喜欢大吵大闹","篮球","篮球","篮球","篮球","篮球","篮球"]
         },
         status: true
     },
     {
         id: 1,
         user: {
-            name: "jesong",
+            name: "薛之谦",
             info: "asda",
             tags: ["篮球", "of"]
         },
