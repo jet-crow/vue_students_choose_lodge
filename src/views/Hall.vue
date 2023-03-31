@@ -69,7 +69,7 @@
                                 <div class="room_item_box" data_checked="true"></div>
                             </li>
                             <li>
-                                <div class="room_item_box"></div>
+                                <div class="room_item_box" data_checked="true"></div>
                             </li>
                             <li>
                                 <div class="room_item_box"></div>

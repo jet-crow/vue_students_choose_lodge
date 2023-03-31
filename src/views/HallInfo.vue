@@ -1,13 +1,14 @@
 <template>
+    <nav class="title">
+            <p id="RommId">A301</p>
+            <h1>共同标签：</h1>
+    </nav>
     <aside>
-        <div class="title">
-            <p id="romm_id">A301</p>
-            <p id="room_title ">共同标签：</p>
-        </div>
         <div class="tag_box">
             <span v-for="item in 10" :key="item">{{ tags[0].tag }}{{ item }}</span>
         </div>
     </aside>
+
     <main>
         <div class="user_info">
 
