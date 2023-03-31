@@ -5,17 +5,17 @@
     </nav>
 
     <aside>
-        <div class="tag_box">
+        <div class="tag_box" :style="opne ? '' : 'height: 8.5vh;'">
             <span v-for="item in 20" :key="item">{{ tags[0].tag }}{{ item }}</span>
-            <div id="Open">展开</div>
+            <div id="Open" @click="opne = !opne">展开</div>
         </div>
-
     </aside>
 
     <main>
         <div class="user_info">
             <ul>
-                <li :class="item.status ? 'user_info_true' : 'user_info_false'" v-for="item in roomData" :key="item.id">
+                <li :class="item.status ? 'user_info_true' : 'user_info_false'" @click="joinRoom(item)"
+                    v-for="item in roomData" :key="item.id">
                     <template v-if="item.status">
                         <!-- 上部 名字 标签 -->
                         <div class="user_info_top">
@@ -45,22 +45,36 @@
             </ul>
         </div>
     </main>
+    <!-- 弹窗 -->
+    <van-popup v-model:show="showRoom" round class="room_popup">
+        <h2>协议</h2>
+        <p class="room_msg">
+            <span>房间:A301</span>
+            <span>床位:1</span>
+        </p>
+        <p class="popup_msg">
+            是否<strong>确认选择</strong>，同意后<strong>无法更改</strong>，如有疑问请联系辅导员老师。
+        </p>
+        <div class="popup_btn">
+            <van-button plain hairline type="danger" size="small" @click="showRoom = false">不同意</van-button>
+            <van-button color="#1C4C8C" size="small" plain>同意</van-button>
+        </div>
+    </van-popup>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
-const tags = reactive([
-    {
-        id: 0,
-        tag: "篮球"
-    }]);
+import { reactive, ref } from 'vue';
+const tags = reactive([{
+    id: 0,
+    tag: "篮球"
+}]);
 const roomData = reactive([
     {
         id: 0,
         user: {
             name: "费玉清",
             info: "你滚我喜欢送你滚我喜欢送你滚我喜欢送你滚",
-            tags: ["篮球", "爱睡觉","不让舍友睡觉","睡觉的时候喜欢大吵大闹","篮球","篮球","篮球","篮球","篮球","篮球"]
+            tags: ["篮球", "爱睡觉", "不让舍友睡觉", "睡觉的时候喜欢大吵大闹", "篮球", "篮球", "篮球", "篮球", "篮球", "篮球"]
         },
         status: true
     },
@@ -84,6 +98,17 @@ const roomData = reactive([
         status: false
     },
 ]);
+//弹窗
+const showRoom = ref(false);
+//是否展开
+const opne = ref(false)
+
+//加入房间
+function joinRoom(item) {
+    if (item.status == true) return;
+    showRoom.value = true;
+    console.log(item);
+}
 </script>
 
 <style scoped>

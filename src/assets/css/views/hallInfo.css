@@ -45,8 +45,6 @@ aside .tag_box {
     padding-top: 1vh;
     padding-bottom: 2vh;
     overflow: hidden;
-    
-    
 }
 
 aside .tag_box>span {
@@ -60,7 +58,7 @@ aside .tag_box>span {
     font-weight: bold;
 }
 
-aside #Open{
+aside #Open {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -82,22 +80,21 @@ aside #Open{
 /* aside End */
 
 /* main Star */
-main{
+main {
     width: 100vw;
     margin-top: 2vh;
     padding: 0 6vw;
 }
 
-main .user_info{
+main .user_info {}
 
-}
-
-main .user_info ul{
+main .user_info ul {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
 }
-main .user_info ul li{
+
+main .user_info ul li {
     height: 16vh;
     margin-bottom: 3vh;
     border-radius: 2vh;
@@ -105,16 +102,17 @@ main .user_info ul li{
     border: 1px solid #1C4C8C;
 
 }
-main .user_info ul li:last-child{
-    margin-bottom:0 ;
+
+main .user_info ul li:last-child {
+    margin-bottom: 0;
 }
 
 /* user_info_true选中状态 Start */
-.user_info_true{
+.user_info_true {
     position: relative;
 }
 
-.user_info_true .user_info_true_index{
+.user_info_true .user_info_true_index {
     position: absolute;
     background-color: #bbd3f1;
     border-radius: 2vh;
@@ -127,31 +125,33 @@ main .user_info ul li:last-child{
     font-size: 16vh;
     color: #1c4d8c3d;
     z-index: -1;
-    
+
 }
 
-.user_info_true .user_info_top{
+.user_info_true .user_info_top {
     height: 70%;
     width: 100%;
     display: flex;
     justify-content: stretch;
 }
 
-.user_info_true .user_info_top_name{
+.user_info_true .user_info_top_name {
     width: 12vw;
     border-right: #1C4C8C solid 1px;
     font-size: 1.4em;
     /* padding-right: 2vw; */
     line-height: 12vw;
     text-align: center;
-    writing-mode: tb; 
+    writing-mode: tb;
     color: #333;
 }
-.user_info_true .user_info_top_tag{
+
+.user_info_true .user_info_top_tag {
     flex-grow: 1;
 
 }
-.user_info_true .user_info_top_tag{
+
+.user_info_true .user_info_top_tag {
     padding: .6vh 0 0 2vw;
     display: flex;
     align-content: flex-start;
@@ -159,7 +159,8 @@ main .user_info ul li:last-child{
     overflow: hidden;
 
 }
-.user_info_true .user_info_top_tag span{
+
+.user_info_true .user_info_top_tag span {
     border: 1px solid #fefade;
     border-radius: 1vh;
     font-size: .8em;
@@ -173,23 +174,25 @@ main .user_info ul li:last-child{
     margin-right: 2vw;
 }
 
-.user_info_true .user_info_end{
+.user_info_true .user_info_end {
     height: 30%;
     padding: 1vh;
     color: #333;
     /* background-color: #0a1c32; */
-    border-top: 1px solid  #1C4C8C;
+    border-top: 1px solid #1C4C8C;
     font-weight: bold;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 /* user_info_true 选中状态 End */
 
 /* user_info_false 未选中状态 Start */
-.user_info_false{
+.user_info_false {
     display: flex;
     background-color: #f5fafe;
 }
-.user_info_false .user_info_left{
+
+.user_info_false .user_info_left {
     width: 30%;
     height: 100%;
     /* background-color: #bbd3f1; */
@@ -197,17 +200,19 @@ main .user_info ul li:last-child{
     line-height: 17vh;
     font-size: 16vh;
     color: #1c4d8c3d;
-    border-right: 1px solid #1C4C8C ;
+    border-right: 1px solid #1C4C8C;
 
 }
-.user_info_false .user_info_right{
+
+.user_info_false .user_info_right {
     width: 70%;
     height: 100%;
     /* background-color: orange; */
     display: flex;
     flex-direction: column;
 }
-.user_info_false .user_info_right p{
+
+.user_info_false .user_info_right p {
     height: 50%;
     width: 100%;
     /* background-color: #1C4C8C; */
@@ -217,11 +222,53 @@ main .user_info ul li:last-child{
     color: #1c4d8c;
 
 }
-.user_info_false .user_info_right p:nth-child(1){
-    border-bottom: 1px dashed #1C4C8C ;
+
+.user_info_false .user_info_right p:nth-child(1) {
+    border-bottom: 1px dashed #1C4C8C;
 }
 
 /* user_info_false 未选中状态 End */
 
 /* main End */
 
+/* 加入弹窗 */
+.room_popup {
+    padding: 1vh 5vw;
+    width: 80vw;
+    height: 26vh;
+}
+
+.room_msg {
+    width: 55%;
+    margin: 1vh auto;
+    justify-content: space-between;
+    display: flex;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.room_popup h2 {
+    text-align: center;
+    position: relative;
+}
+
+.room_popup h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    border-bottom: 1px dashed #1C4C8C;
+}
+
+.room_popup>.popup_msg {
+    text-indent: 2em;
+    line-height: 1.8em;
+}
+
+.room_popup>.popup_btn {
+    width: 55%;
+    margin: 3vh auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
