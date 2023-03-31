@@ -1,47 +1,162 @@
 /* aside start */
 .title {
-    position: relative;
+    /* position: relative; */
+    display: flex;
+    justify-content: space-between;
     height: 6vh;
     background-color: #bbd3f1;
 }
 
-#romm_id {
-    position: absolute;
-    height: 100%;
-    width: fit-content;
-    color: white;
+#RommId {
     background-color: #1C4C8C;
-    font-size: 1.25em;
-    font-weight: 600;
-    right: 0;
-    top: 0;
-    padding: 1vh 3vw 1vh 4vw;
-    border-top: none;
-    border-right: none;
-    border-radius: 0 0 0 1em;
+    line-height: 6vh;
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0 5vw 0 8vw;
+    border-bottom-left-radius: 5vw;
+
 }
 
-aside>.room_title {
-    font-size: 1.2em;
-    font-weight: 600;
-    margin-left: -2vw;
-    color: #606060;
+.title h1 {
+    padding-left: 6vw;
+    color: #1C4C8C;
+    font-size: 1.5em;
+    line-height: 6vh;
+    font-weight: bold;
+
 }
 
-.tag_box {
+
+aside {
+
+    width: 100vw;
+    padding: 0 6vw;
+    /* background-color: aquamarine; */
+}
+
+aside .tag_box {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    border: 2px dashed #95c1fa;
-    border-radius: .5em;
+    border: 2px dashed #1C4C8C;
+    border-radius: 1em;
     margin-top: 1vh;
-    padding: 1vh 1vw;
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+    overflow: hidden;
+    
 }
 
-.tag_box>span {
-    display: block;
-    margin-bottom: 1.5vh;
-    margin-right: 3vw;
-    padding: .5vh 3vw;
-    border: 1px solid #648cbf;
-    border-radius: .5em;
+aside .tag_box>span {
+    border: 1px solid #1C4C8C;
+    border-radius: 1vh;
+    font-size: .8em;
+    margin: 0 2vw 1vh;
+    padding: .2vh 1.4vw;
+    background-color: #bbd3f1;
+    color: #0a1c32;
+    font-weight: bold;
 }
+
+aside #Open{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 10vw;
+    height: 2vh;
+    font-weight: bold;
+    line-height: 2vh;
+    font-size: 0.7em;
+    color: #1C4C8C;
+    background-color: #FFF;
+    border-top-left-radius: 2vh;
+    border-top: 1px solid #1C4C8C;
+    border-left: 1px solid #1C4C8C;
+    padding-left: 2vw;
+    font-weight: bold;
+
+}
+
+/* aside End */
+
+/* main Star */
+main{
+    width: 100vw;
+    margin-top: 2vh;
+    padding: 0 6vw;
+}
+
+main .user_info{
+
+}
+
+main .user_info ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+main .user_info ul li{
+    height: 16vh;
+    margin-bottom: 3vh;
+    border-radius: 2vh;
+    /* background-color: #bbd3f1; */
+    border: 1px solid #1C4C8C;
+
+}
+main .user_info ul li:last-child{
+    margin-bottom:0 ;
+}
+
+/* user_info_true选中状态 Start */
+.user_info_true{
+    position: relative;
+}
+
+.user_info_true .user_info_true_index{
+    position: absolute;
+    background-color: #bbd3f1;
+    border-radius: 2vh;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 17vh;
+    font-size: 9em;
+    color: #1c4d8c3d;
+    z-index: -1;
+    
+}
+
+.user_info_true .user_info_top{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: stretch;
+}
+
+.user_info_true .user_info_top_name{
+    width: 12vw;
+    border-right: #1C4C8C solid 1px;
+    font-size: 1.4em;
+    padding: 1vw;
+    line-height: 3vh;
+    text-align: center;
+    
+}
+.user_info_true .user_info_top_tag{
+    flex-grow: 1;
+
+}
+
+.user_info_true .user_info_end{
+    height: 30%;
+    /* background-color: #0a1c32; */
+    border-top: 1px solid  #1C4C8C;
+}
+/* user_info_true 选中状态 End */
+
+
+/* main End */
+
