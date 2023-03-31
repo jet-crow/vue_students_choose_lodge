@@ -1,0 +1,47 @@
+/* aside start */
+.title {
+    position: relative;
+    height: 6vh;
+    background-color: #bbd3f1;
+}
+
+#romm_id {
+    position: absolute;
+    height: 100%;
+    width: fit-content;
+    color: white;
+    background-color: #1C4C8C;
+    font-size: 1.25em;
+    font-weight: 600;
+    right: 0;
+    top: 0;
+    padding: 1vh 3vw 1vh 4vw;
+    border-top: none;
+    border-right: none;
+    border-radius: 0 0 0 1em;
+}
+
+aside>p {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-left: -2vw;
+    color: #606060;
+}
+
+.tag_box {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px dashed #95c1fa;
+    border-radius: .5em;
+    margin-top: 1vh;
+    padding: 1vh 1vw;
+}
+
+.tag_box>span {
+    display: block;
+    margin-bottom: 1.5vh;
+    margin-right: 3vw;
+    padding: .5vh 3vw;
+    border: 1px solid #648cbf;
+    border-radius: .5em;
+}
