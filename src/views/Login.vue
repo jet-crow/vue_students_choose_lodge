@@ -45,6 +45,5 @@ function login() {
 </script>
 
 
-<style scoped>
-@import url(../assets/css/views/login.css);
+<style scoped src="../assets/css/views/login.css">
 </style>

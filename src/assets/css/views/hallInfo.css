@@ -268,7 +268,7 @@ main .user_info ul li:last-child {
 
 .room_popup>.popup_btn {
     width: 55%;
-    margin: 3vh auto 0 auto;
+    margin: 3.5vh auto 2vh auto;
     display: flex;
     justify-content: space-between;
 }

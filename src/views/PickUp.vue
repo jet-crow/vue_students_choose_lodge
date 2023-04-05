@@ -60,6 +60,5 @@ function checkMsgNumbe() {
 }
 </script>
 
-<style scoped>
-@import url(../assets/css/views/pickUp.css);
+<style scoped src="../assets/css/views/pickUp.css">
 </style>

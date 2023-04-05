@@ -41,6 +41,5 @@ import Nav from '../components/Nav.vue'
 
 </script>
 
-<style scoped>
-@import url(../assets/css/views/confirmationInfo.css);
+<style scoped src="../assets/css/views/confirmationInfo.css">
 </style>

@@ -121,10 +121,10 @@ const checked_search = ref(false);
 const sortChecked = ref(false);
 const sortType = ref("推荐排序");
 
-function sortList(){
-    if(sortChecked.value){
+function sortList() {
+    if (sortChecked.value) {
         sortType.value = "推荐排序";
-    }else{
+    } else {
         sortType.value = "顺序排序";
     }
     sortChecked.value = !sortChecked.value;
@@ -134,4 +134,4 @@ function sortList(){
 </script>
 
 
-<style scoped>@import url(../assets/css/views/hall.css);</style>
+<style scoped src="../assets/css/views/hall.css"></style>

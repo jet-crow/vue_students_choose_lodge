@@ -111,6 +111,5 @@ function joinRoom(item) {
 }
 </script>
 
-<style scoped>
-@import url(../assets/css/views/hallInfo.css);
+<style scoped src="../assets/css/views/hallInfo.css">
 </style>
