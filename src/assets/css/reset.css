@@ -70,8 +70,8 @@ body {
 
 :root {
     /* Element ui 主题样式 */
-    --color-blue-dark:#589ef8;
-    --color-blue-light:#87baf9;
+    --color-blue-dark:#274C87;
+    --color-blue-light:#3b70c6;
     /* 字体大小 */
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
