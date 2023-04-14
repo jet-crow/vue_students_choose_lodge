@@ -159,7 +159,7 @@ const closeRoomInfo = () => {
     let room = null;
     for (let i = 1; i <= 4; i++) {
         room = tableData[selectRoomIndex]['bed' + i]
-        if (room != null) return;
+        if (room != "") return;
     }
     tableData.splice(selectRoomIndex,1);
 }
