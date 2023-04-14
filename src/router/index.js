@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: '/admin/login',
-    name: 'login',
+    name: 'adminLogin',
     component: () => import('../views/admin/AdminLogin.vue')
   },
   {
