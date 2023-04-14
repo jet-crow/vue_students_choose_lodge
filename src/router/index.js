@@ -27,6 +27,29 @@ const routes = [
     name: 'hallInfo',
     component: () => import(/* webpackChunkName: "about" */ '../views/HallInfo.vue')
   },
+  {
+    path: '/admin/login',
+    name: 'login',
+    component: () => import('../views/admin/AdminLogin.vue')
+  },
+  {
+    path: '/admin',
+    name: 'afterIndex',
+    component: () => import('../views/admin/AfterIndex.vue'),
+    children:[
+      {
+        path:'buildingManagement',
+        component: () => import('../views/admin/BuildingManagement.vue')
+      },{
+        path: 'roomManagement',
+        component: () => import('../views/admin/RoomManagement.vue')
+      }
+      ,{
+        path: 'studentManagement',
+        component: () => import('../views/admin/StudentManagement.vue')
+      }
+    ]
+  }
 ]
 
 const router = createRouter({

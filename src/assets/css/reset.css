@@ -67,3 +67,22 @@ body {
 .clearfix {
     *zoom: 1;
 }
+
+:root {
+    /* Element ui 主题样式 */
+    --color-blue-dark:#87baf9;
+    --color-blue-light:#589EF8
+    /* 字体大小 */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+    --text-8xl: 6rem;
+    --text-9xl: 8rem;
+}
