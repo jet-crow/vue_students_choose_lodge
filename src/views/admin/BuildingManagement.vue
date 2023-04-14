@@ -12,12 +12,19 @@
 <style scoped>
 main{
     padding: 20px 60px 0px;
-    font-size: var(--text-2xl);
-    text-align: center;
 
 }
 .new_building_btn{
-    background-color: aqua;
+    background-color: var(--color-blue-dark);
+    text-align: center;
+    font-size: var(--text-2xl);
+    color: #fff;
+    border-radius: 20px;
+    transition: all .2s;
+}
+.new_building_btn:hover{
+    background-color: var(--color-blue-light);
+
 }
 
 </style>
