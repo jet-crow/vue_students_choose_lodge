@@ -1,5 +1,10 @@
 <!-- 宿楼管理 -->
 <template>
+        <el-page-header @back="goBack">
+        <template #content>
+            <span class="text-large font-600 mr-3"> 宿楼管理 </span>
+        </template>
+    </el-page-header>
     <main>
         <section :onClick="() => { showFloorAdd = true }" class="new_building_btn">
             新建 宿舍楼
@@ -40,6 +45,7 @@
         <div class="building_box">
             <ul>
                 <li v-for="count in 10">
+                    <div class="sex">男</div>
                     <div class="left">{{ count }}</div>
                     <div class="right">
                         <span :onClick="() => { showFloorUpdate = true }">楼层修改</span>

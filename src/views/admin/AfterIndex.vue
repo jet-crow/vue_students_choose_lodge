@@ -62,6 +62,7 @@ const handleClose = (key, keyPath) => {
 .view_item {
     flex: 1;
     padding:4px;
+    position: relative;
 }
 
 .exit {

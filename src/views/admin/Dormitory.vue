@@ -1,6 +1,279 @@
 <template>
-    分配宿舍
+    
+    <el-page-header @back="goBack">
+        <template #content>
+            <span class="text-large font-600 mr-3"> 分配宿舍 </span>
+        </template>
+    </el-page-header>
+    <div id='se' @mousedown.stop="handleBox">
+        <ul id="ul">
+            <li v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
+                class="li">{{ item.name + (index + 1) }}</li>
+        </ul>
+        <div v-show="isShowSeBox" id="selection"></div>
+    </div>
+
+    <footer>
+        <span>已选 {{ selected }} 间</span>
+        <span>剩余 {{ list.length - selected }} 间</span>
+        <span>性别 男</span>
+        <div class="btn">
+            <el-select v-model="value" class="m-2" placeholder="Select" >
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+            <el-button type="primary">提交</el-button>
+        </div>
+    </footer>
 </template>
-<script setup>
+  
+<script>
+export default {
+    components: {},
+    data() {
+        return {
+            value: '',
+            options: [
+                {
+                    value: 'Option1',
+                    label: 'Option1',
+                },
+                {
+                    value: 'Option2',
+                    label: 'Option2',
+                },
+                {
+                    value: 'Option3',
+                    label: 'Option3',
+                },
+                {
+                    value: 'Option4',
+                    label: 'Option4',
+                },
+                {
+                    value: 'Option5',
+                    label: 'Option5',
+                },
+            ],
+
+            list: [
+                {
+                    name: '列表',
+                    id: 1,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 2,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 3,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 4,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 5,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 6,
+                    isS: false,
+                }, {
+                    name: '列表',
+                    id: 7,
+                    isS: false,
+                }, {
+                    name: '列表',
+                    id: 8,
+                    isS: false,
+                }, {
+                    name: '列表',
+                    id: 9,
+                    isS: false,
+                }, {
+                    name: '列表',
+                    id: 10,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 11,
+                    isS: false,
+                },
+                {
+                    name: '列表',
+                    id: 12,
+                    isS: false,
+                },
+            ],
+            isshift: false, // 是否按下 shift
+            isctrl: false, // 是否按下 ctrl
+            isonkeydown: false, // 是否按下键盘
+            selectBox: null, // 框选盒子
+            isShowSeBox: false, // 框选是否显示div
+            selectList: [], // 每次点击，push进去点击的index
+            lipL: 0,  // 框选li的父盒子针对于窗口的left
+            lipT: 0, // 框选li的父盒子针对于窗口的top
+            selected: 0,
+        };
+    },
+    mounted() {
+        this.selectBox = document.getElementById("selection");
+        this.parentBox = document.getElementById("se");
+        this.handleScroll();
+    },
+    computed: {},
+    watch: {},
+    methods: {
+        handleBox(even) {
+            if (!this.isctrl && !this.isshift && this.selectList.length != 0) {
+                this.selectList = [];
+                this.loop();
+            }
+            // 按下时的坐标
+            this.downX = even.clientX;
+            this.downY = even.clientY;
+            this.selectBox.style.left = this.downX + "px";
+            this.selectBox.style.top = this.downY + "px";
+            document.body.addEventListener('mousemove', this.moveselecttion);
+            document.body.addEventListener('mouseup', this.mouseupSelection);
+            window.addEventListener("scroll", this.handleScroll);
+            window.addEventListener('keydown', this.clickKeydown);
+            window.addEventListener('keyup', this.clickKeyup);
+        },
+        // 页面滚动  滚动时，实时更新父盒子横纵坐标
+        handleScroll() {
+            //获取li父元素的纵坐标（相对于窗口）
+            this.lipT = this.parentBox.getBoundingClientRect().top;
+            //获取li父元素的横坐标（相对于窗口）
+            this.lipL = this.parentBox.getBoundingClientRect().left;
+        },
+        // 键盘按下
+        clickKeydown(e) {
+            switch (e.keyCode) {
+                case 16:
+                    this.isshift = true;
+                    break;
+                case 17: // window 键盘
+                    this.isctrl = true;
+                    break;
+                case 91:  // mac command  按键
+                    this.isctrl = true;
+                    break;
+            }
+        },
+        // 键盘松开
+        clickKeyup(e) {
+            this.isshift = false;
+            this.isctrl = false;
+        },
+        handleClick(index) {
+            // shift 连选
+            if (this.isshift) {
+                if (this.selectList.indexOf(index) == -1) {
+                    this.selectList.push(index);
+                }
+                if (this.selectList.length > 1) {
+                    // 按 shift 连选，通过判断第一次点击index和最后一次index，中间全部选中
+                    let le = this.selectList.length;
+                    var min = Math.min(this.selectList[0], this.selectList[le - 1]);
+                    var max = Math.max(this.selectList[0], this.selectList[le - 1]);
+                    this.selectList = [];  // 防止最初始的两次点击，多处的两个index
+                    for (let i = min; i <= max; i++) {
+                        this.selectList.push(i);
+                    }
+                }
+                this.loop();
+            }
+            // ctrl 多选 可重复单机取消
+            else if (this.isctrl) {
+                if (this.selectList.indexOf(index) == -1) {
+                    this.selectList.push(index);
+                } else {
+                    // 此处判断是否存在高亮index，如果存在，再次点击后，则删除此index，达到二次点击取消选区效果
+                    this.selectList.splice(this.selectList.indexOf(index), 1);
+                }
+                this.loop();
+            }
+            // 单选
+            else {
+                this.selectList = [];
+                this.selectList.push(index);
+                this.loop();
+            }
+
+        },
+
+        // 鼠标移动事件
+        moveselecttion(even) {
+            this.isShowSeBox = true;
+            this.selectBox.style.left = Math.min(even.clientX, this.downX) + "px";
+            this.selectBox.style.top = Math.min(even.clientY, this.downY) + "px";
+            this.selectBox.style.width = Math.abs(this.downX - even.clientX) + "px";
+            this.selectBox.style.height = Math.abs(this.downY - even.clientY) + "px";
+            this.covered();
+        },
+        // 鼠标松开事件
+        mouseupSelection(even) {
+            this.isShowSeBox = false;
+            this.selectBox.style.width = 0 + "px";
+            this.selectBox.style.height = 0 + "px";
+            document.body.removeEventListener('mousemove', this.moveselecttion);
+            document.body.removeEventListener('mouseup', this.mouseupSelection);
+
+            // console.log('已选：' + this.selected);
+        },
+        // 是否被覆盖
+        covered() {
+            let li = document.getElementsByClassName('li');
+            if (!this.isctrl && !this.isctrl) {
+                this.selectList = [];
+            }
+            let l = parseInt(this.selectBox.style.left);
+            let t = parseInt(this.selectBox.style.top);
+            let w = parseInt(this.selectBox.style.width);
+            let h = parseInt(this.selectBox.style.height);
+            for (let i = 0; i < li.length; i++) {
+                if (this.selectList.indexOf(i) == -1) {
+                    //  子元素是相对父元素定位的，所以父元素有定位高度，offsetLeft 和 offsetTop不准
+                    let sl = li[i].offsetWidth + li[i].offsetLeft + this.lipL;
+                    let st = li[i].offsetHeight + li[i].offsetTop + this.lipT;
+                    if (sl > l && st > t && li[i].offsetLeft + this.lipL < l + w && li[i].offsetTop + this.lipT < t + h) {
+                        this.selectList.push(i);
+                    }
+                    this.loop();
+                }
+
+            }
+        },
+        // 循环遍历,在这里，可以拿到所选的item
+        loop() {
+            this.selected = 0;
+            this.list.forEach((e, index) => {
+                e.isS = false;
+                this.selectList.filter(item => {
+                    if (item == index) {
+                        e.isS = true;
+                        this.selected++;
+                    }
+                });
+            });
+        }
+    },
+    destroyed() {
+        document.body.removeEventListener('mousemove', this.moveselecttion);
+        document.body.removeEventListener('mouseup', this.mouseupSelection);
+        window.removeEventListener("scroll", this.handleScroll);
+        window.removeEventListener('keydown', this.clickKeydown);
+        window.removeEventListener('keyup', this.clickKeyup);
+    }
+};
 </script>
-<style scoped></style>
+<style scoped src="@/assets/css/views/admin/dormitory.css"></style>

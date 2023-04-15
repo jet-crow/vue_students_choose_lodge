@@ -26,12 +26,24 @@ main {
 }
 
 .building_box ul li {
+    position: relative;
     background-color: #FFF;
     border-radius: 10px;
     height: 100px;
     display: flex;
     overflow: hidden;
     border: 2px solid var(--color-blue-dark);
+}
+.building_box ul li .sex{
+    background-color: var(--color-blue-dark);
+    position: absolute;
+    width: 35px;
+    height: 30px;
+    border-bottom-right-radius: 7px;
+    text-align: center;
+    line-height: 30px;
+    color: #FFF;
+    font-size: var(--text-xl);
 }
 
 .building_box ul li .left {
