@@ -6,12 +6,11 @@
         </template>
     </el-page-header>
     <main>
-        <section :onClick="() => { showFloorAdd = true }" class="new_building_btn">
+        <section @click="() => { showFloor = true; isAdd = true }" class="new_building_btn">
             新建 宿舍楼
         </section>
 
-
-        <el-dialog v-model="showFloorAdd" title="新建宿舍楼" width="30%" :before-close="handleClose" class="floor_add dialog">
+        <el-dialog v-model="showFloor" title="修改宿舍楼" width="30%" :before-close="handleClose" class="floor_update dialog">
             <el-input v-model="input1" placeholder="Please input">
                 <template #prepend>楼号</template>
             </el-input>
@@ -21,23 +20,15 @@
             <el-input v-model="input1" placeholder="Please input">
                 <template #prepend>每层房数</template>
             </el-input>
-            <el-button type="primary" class="btn_right">确认新增</el-button>
-        </el-dialog>
-
-        <el-dialog v-model="showFloorUpdate" title="修改宿舍楼" width="30%" :before-close="handleClose"
-            class="floor_update dialog">
-
-            <el-input v-model="input1" placeholder="Please input">
-                <template #prepend>楼号</template>
-            </el-input>
-            <el-input v-model="input1" placeholder="Please input">
-                <template #prepend>楼层</template>
-            </el-input>
-            <el-input v-model="input1" placeholder="Please input">
-                <template #prepend>每层房数</template>
-            </el-input>
-            <el-button type="primary">删除</el-button>
-            <el-button type="primary">修改</el-button>
+                <el-radio-group v-model="radio">
+                    <el-radio-button label="男" />
+                    <el-radio-button label="女" />
+                </el-radio-group>
+            <template #footer>
+                <el-button type="primary" class="btn_right" v-show="isAdd">确认新增</el-button>
+                <el-button type="primary" v-show="isAdd === false">删除</el-button>
+                <el-button type="primary" v-show="isAdd === false">修改</el-button>
+            </template>
         </el-dialog>
 
 
@@ -48,7 +39,7 @@
                     <div class="sex">男</div>
                     <div class="left">{{ count }}</div>
                     <div class="right">
-                        <span :onClick="() => { showFloorUpdate = true }">楼层修改</span>
+                        <span @click="() => { showFloor = true; isAdd = false; }">楼层修改</span>
                         <span @click="jump">分配宿舍</span>
                     </div>
                 </li>
@@ -60,14 +51,16 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router'
-const showFloorUpdate = ref(false);
-const showFloorAdd = ref(false);
+const showFloor = ref(false);
+const isAdd = ref(false);
 const router = useRouter();
+const radio = ref("")
+
 const jump = () => {
     router.push({
-        path:'/admin/dormitory',
-        query:{
-            id:'1'
+        path: '/admin/dormitory',
+        query: {
+            id: '1'
         }
     })
 }
