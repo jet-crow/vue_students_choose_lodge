@@ -43,11 +43,14 @@ const routes = [
       },{
         path: 'roomManagement',
         component: () => import('../views/admin/RoomManagement.vue')
-      }
-      ,{
+      },{
         path: 'studentManagement',
         component: () => import('../views/admin/StudentManagement.vue')
+      },{
+        path: 'dormitory',
+        component: () => import('../views/admin/Dormitory.vue')
       }
+      
     ]
   }
 ]

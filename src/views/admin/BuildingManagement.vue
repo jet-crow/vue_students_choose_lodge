@@ -19,7 +19,8 @@
             <el-button type="primary" class="btn_right">确认新增</el-button>
         </el-dialog>
 
-        <el-dialog v-model="showFloorUpdate" title="修改宿舍楼" width="30%" :before-close="handleClose" class="floor_update dialog">
+        <el-dialog v-model="showFloorUpdate" title="修改宿舍楼" width="30%" :before-close="handleClose"
+            class="floor_update dialog">
 
             <el-input v-model="input1" placeholder="Please input">
                 <template #prepend>楼号</template>
@@ -32,16 +33,9 @@
             </el-input>
             <el-button type="primary">删除</el-button>
             <el-button type="primary">修改</el-button>
-
-
         </el-dialog>
 
 
-        <el-dialog v-model="showAllotRoom" title="分配宿舍" width="30%" :before-close="handleClose" class="allot_room dialog">
-            <!-- 分配宿舍 -->
-
-
-        </el-dialog>
 
         <div class="building_box">
             <ul>
@@ -49,21 +43,28 @@
                     <div class="left">{{ count }}</div>
                     <div class="right">
                         <span :onClick="() => { showFloorUpdate = true }">楼层修改</span>
-                        <span :onClick="() => { showAllotRoom = true }">分配宿舍</span>
+                        <span @click="jump">分配宿舍</span>
                     </div>
                 </li>
-                
+
             </ul>
         </div>
     </main>
 </template>
 <script setup>
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router'
 const showFloorUpdate = ref(false);
-const showAllotRoom = ref(false);
 const showFloorAdd = ref(false);
-
-
+const router = useRouter();
+const jump = () => {
+    router.push({
+        path:'/admin/dormitory',
+        query:{
+            id:'1'
+        }
+    })
+}
 </script>
 <style scoped></style>
 
