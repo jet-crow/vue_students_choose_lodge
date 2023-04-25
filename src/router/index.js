@@ -60,4 +60,19 @@ const router = createRouter({
   routes
 })
 
+//路由拦截
+router.beforeEach((to, from, next) => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  //如果访问含admin的网址，必须有adminToken，否则直接返回到前端登录页面
+  let adminToken = localStorage.getItem("adminToken");
+  if (to.path === '/admin/login') {
+      next();
+      return;
+  } else if (to.path.includes("admin") && (adminToken === null || adminToken === '')) {
+      next("/");
+      return;
+  }
+  next();
+});
 export default router
