@@ -1,6 +1,6 @@
 <!-- 宿楼管理 -->
 <template>
-        <el-page-header @back="goBack">
+    <el-page-header @back="goBack">
         <template #content>
             <span class="text-large font-600 mr-3"> 宿楼管理 </span>
         </template>
@@ -11,21 +11,21 @@
         </section>
 
         <el-dialog v-model="showFloor" title="修改宿舍楼" width="30%" :before-close="handleClose" class="floor_update dialog">
-            <el-input v-model="input1" placeholder="Please input">
-                <template #prepend>楼号</template>
+            <el-input v-model="inputData.buildingName" placeholder="请输入宿舍楼号" v-show="isAdd === true">
+                <template #prepend>宿舍楼号</template>
             </el-input>
-            <el-input v-model="input1" placeholder="Please input">
-                <template #prepend>楼层</template>
+            <el-input v-model="inputData.buildingFloor" placeholder="请输入宿舍楼层" v-show="isAdd === true">
+                <template #prepend>宿舍楼层</template>
             </el-input>
-            <el-input v-model="input1" placeholder="Please input">
+            <el-input v-model="inputData.buildingRoomSum" placeholder="请输入每层房数" v-show="isAdd === true">
                 <template #prepend>每层房数</template>
             </el-input>
-                <el-radio-group v-model="radio">
-                    <el-radio-button label="男" />
-                    <el-radio-button label="女" />
-                </el-radio-group>
+            <el-radio-group v-model="radio">
+                <el-radio-button label="男" />
+                <el-radio-button label="女" />
+            </el-radio-group>
             <template #footer>
-                <el-button type="primary" class="btn_right" v-show="isAdd">确认新增</el-button>
+                <el-button type="primary" class="btn_right" v-show="isAdd" @click="newBuilding">确认新增</el-button>
                 <el-button type="primary" v-show="isAdd === false">删除</el-button>
                 <el-button type="primary" v-show="isAdd === false">修改</el-button>
             </template>
@@ -39,8 +39,8 @@
                     <div class="sex">男</div>
                     <div class="left">{{ count }}</div>
                     <div class="right">
-                        <span @click="() => { showFloor = true; isAdd = false; }">楼层修改</span>
                         <span @click="jump">分配宿舍</span>
+                        <span @click="() => { showFloor = true; isAdd = false; }">楼层修改</span>
                     </div>
                 </li>
 
@@ -49,12 +49,40 @@
     </main>
 </template>
 <script setup>
+import { showSuccessToast, showFailToast } from 'vant';
 import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 const showFloor = ref(false);
 const isAdd = ref(false);
 const router = useRouter();
-const radio = ref("")
+const radio = ref("");
+
+
+const inputData = ref({
+    buildingName: '',
+    buildingFloor: '',
+    buildingRoomSum: '',
+});
+
+const newBuilding = () => {
+    let data = inputData.value;
+    //过滤数据
+    if (data.buildingFloor.indexOf('.') != -1 ||
+        data.buildingRoomSum.indexOf('.') != -1 ||
+        data.buildingRoomSum > 99 ||
+        data.buildingRoomSum < 0 ||
+        data.buildingFloor < 0 ||
+        data.buildingRoomSum == '' ||
+        data.buildingFloor == ''||
+        data.buildingName == ''){
+        return;
+    }
+    // 男女也得判断！
+
+    console.log('过验证啦');
+};
+
+
 
 const jump = () => {
     router.push({
@@ -62,8 +90,9 @@ const jump = () => {
         query: {
             id: '1'
         }
-    })
+    });
 }
+
 </script>
 <style scoped></style>
 
