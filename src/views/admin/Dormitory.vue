@@ -276,4 +276,14 @@ export default {
     }
 };
 </script>
+<script setup>
+import { ref, getCurrentInstance } from 'vue';
+import router from "@/router";
+const { proxy } = getCurrentInstance();
+// 获取过来的buildingId
+const buildingId = router.currentRoute.value.query.buildingId;
+console.log('buildingId:'+buildingId);
+
+
+</script>
 <style scoped src="@/assets/css/views/admin/dormitory.css"></style>
