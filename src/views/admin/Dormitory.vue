@@ -1,5 +1,4 @@
 <template>
-    
     <el-page-header @back="goBack">
         <template #content>
             <span class="text-large font-600 mr-3"> 分配宿舍 </span>
@@ -7,8 +6,10 @@
     </el-page-header>
     <div id='se' @mousedown.stop="handleBox">
         <ul id="ul">
-            <li v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
-                class="li">{{ item.name + (index + 1) }}</li>
+            <li 
+            v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
+                class="li">{{ item.roomName}}{{  item.professional }}
+            </li>
         </ul>
         <div v-show="isShowSeBox" id="selection"></div>
     </div>
@@ -18,43 +19,21 @@
         <span>剩余 {{ list.length - selected }} 间</span>
         <span>性别 男</span>
         <div class="btn">
-            <el-select v-model="value" class="m-2" placeholder="Select" >
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select v-model="professional" class="m-2" placeholder="Select">
+                <el-option v-for="item in options" :key="item.professionalId" :label="item.professionalContent"
+                    :value="item.professionalContent" />
             </el-select>
             <el-button type="primary">提交</el-button>
         </div>
     </footer>
 </template>
   
+
+
 <script>
 export default {
-    components: {},
     data() {
         return {
-            value: '',
-            options: [
-                {
-                    value: 'Option1',
-                    label: 'Option1',
-                },
-                {
-                    value: 'Option2',
-                    label: 'Option2',
-                },
-                {
-                    value: 'Option3',
-                    label: 'Option3',
-                },
-                {
-                    value: 'Option4',
-                    label: 'Option4',
-                },
-                {
-                    value: 'Option5',
-                    label: 'Option5',
-                },
-            ],
-
             list: [
                 {
                     name: '列表',
@@ -122,15 +101,31 @@ export default {
             lipL: 0,  // 框选li的父盒子针对于窗口的left
             lipT: 0, // 框选li的父盒子针对于窗口的top
             selected: 0,
+            //下拉选择框
+            professional: '',
+            options: [],
         };
+    },
+    created() {
+        //初始化请求接口
+        this.$api.get("/professional/addProfessional").then(r => {
+            this.options = r.data;
+        })
+        let buildingId = this.$route.query.buildingId
+        this.$api.get("/room/queryAllRoom?buildingId=" + buildingId).then(r => {
+            // console.log(r.data);
+            this.list = r.data.map(i => {
+                i.isS = i.professional == null ? false : true;
+                return i;
+            })
+            console.log(this.list);
+        })
     },
     mounted() {
         this.selectBox = document.getElementById("selection");
         this.parentBox = document.getElementById("se");
         this.handleScroll();
     },
-    computed: {},
-    watch: {},
     methods: {
         handleBox(even) {
             if (!this.isctrl && !this.isshift && this.selectList.length != 0) {
@@ -210,7 +205,6 @@ export default {
             }
 
         },
-
         // 鼠标移动事件
         moveselecttion(even) {
             this.isShowSeBox = true;
@@ -266,7 +260,9 @@ export default {
                 });
             });
         }
+
     },
+
     destroyed() {
         document.body.removeEventListener('mousemove', this.moveselecttion);
         document.body.removeEventListener('mouseup', this.mouseupSelection);
@@ -282,7 +278,7 @@ import router from "@/router";
 const { proxy } = getCurrentInstance();
 // 获取过来的buildingId
 const buildingId = router.currentRoute.value.query.buildingId;
-console.log('buildingId:'+buildingId);
+console.log('buildingId:' + buildingId);
 
 
 </script>
