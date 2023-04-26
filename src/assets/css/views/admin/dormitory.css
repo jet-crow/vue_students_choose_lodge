@@ -23,11 +23,22 @@
 }
 
 #se ul li {
-    box-sizing: border-box;
-    padding: 5px 10px;
+    /* box-sizing: border-box; */
+
     border: 1px solid #ccc;
     margin: 10px;
     cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+
+}
+#se ul li span{
+    padding: 8px;
 }
 
 #se ul .isS {
@@ -59,7 +70,17 @@ footer {
     padding: 16px 66px 16px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     background-color: #3b70c633;
 
+}
+footer span{
+    padding-right: 30px;
+}
+
+.professional{
+    background-color: var(--color-blue-dark);
+    color: #FFF;
+    /* margin-left: 10px; */
+    border-radius: 5px;
 }

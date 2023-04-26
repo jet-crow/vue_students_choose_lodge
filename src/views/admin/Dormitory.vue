@@ -1,14 +1,13 @@
 <template>
-    <el-page-header @back="goBack">
+    <el-page-header @back="$router.back()">
         <template #content>
-            <span class="text-large font-600 mr-3"> 分配宿舍 </span>
+            <span class="text-large font-600 mr-3"> 分配{{buildingName}}栋宿舍</span>
         </template>
     </el-page-header>
     <div id='se' @mousedown.stop="handleBox">
         <ul id="ul">
-            <li 
-            v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
-                class="li">{{ item.roomName}}{{  item.professional }}
+            <li v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
+                class="li" :style="{paddingRight:(!item.professional? '10px':'0px')}"><span>{{ item.roomName }}</span><span class="professional" v-show="item.professional ? true : false">{{ item.professional}}</span>
             </li>
         </ul>
         <div v-show="isShowSeBox" id="selection"></div>
@@ -16,14 +15,13 @@
 
     <footer>
         <span>已选 {{ selected }} 间</span>
-        <span>剩余 {{ list.length - selected }} 间</span>
-        <span>性别 男</span>
+        <span>性别 {{ sex }}</span>
         <div class="btn">
             <el-select v-model="professional" class="m-2" placeholder="Select">
                 <el-option v-for="item in options" :key="item.professionalId" :label="item.professionalContent"
                     :value="item.professionalContent" />
             </el-select>
-            <el-button type="primary">提交</el-button>
+            <el-button type="primary" @click="submitUpdateRoom">提交</el-button>
         </div>
     </footer>
 </template>
@@ -104,22 +102,30 @@ export default {
             //下拉选择框
             professional: '',
             options: [],
+            //框选中的元素
+            selectedRoomIdArr: [],
+            // 传过来的数据
+            sex:'',
+            buildingName:''
         };
     },
     created() {
         //初始化请求接口
         this.$api.get("/professional/addProfessional").then(r => {
             this.options = r.data;
-        })
-        let buildingId = this.$route.query.buildingId
+        });
+        let buildingId = this.$route.query.buildingId;
+        this.buildingName = this.$route.query.buildingName;
+        this.sex = this.$route.query.sex;
         this.$api.get("/room/queryAllRoom?buildingId=" + buildingId).then(r => {
-            // console.log(r.data);
+            console.log(r.data);
             this.list = r.data.map(i => {
-                i.isS = i.professional == null ? false : true;
+                // i.isS = i.professional == null ? false : true;
                 return i;
-            })
+            });
+            //处理！
             console.log(this.list);
-        })
+        });
     },
     mounted() {
         this.selectBox = document.getElementById("selection");
@@ -249,16 +255,54 @@ export default {
         },
         // 循环遍历,在这里，可以拿到所选的item
         loop() {
+            this.selectedRoomIdArr = [];
             this.selected = 0;
             this.list.forEach((e, index) => {
                 e.isS = false;
                 this.selectList.filter(item => {
                     if (item == index) {
                         e.isS = true;
+                        this.selectedRoomIdArr.push(e.roomId);
                         this.selected++;
                     }
                 });
             });
+        },
+        //点击提交
+        submitUpdateRoom() {
+            // 获取框选中的roomId
+            const selectedRoomIdArrStr = this.selectedRoomIdArr.toString()
+            console.log(selectedRoomIdArrStr);
+
+            // 获取专业
+            console.log(this.professional);
+
+            if (this.selectedRoomIdArr.length == 0 || this.professional == '') {
+                ElMessage({
+                    type: 'error',
+                    message: '缺少信息'
+                });
+                return;
+            }
+
+            this.$api.put("/room/updateProfessional", this.$qs.stringify({
+                'professional': this.professional,
+                'roomId': selectedRoomIdArrStr
+            })).then(r => {
+                console.log(r);
+                location.reload();
+                ElMessage({
+                    type: 'success',
+                    message: '修改成功 ' + r.data + ' 间宿舍' 
+                });
+            }).catch(_ => {
+                ElMessage({
+                    type: 'error',
+                    message: '修改失败'
+                });
+            });
+            
+
         }
 
     },

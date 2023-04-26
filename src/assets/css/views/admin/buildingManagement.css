@@ -18,10 +18,13 @@ main {
 }
 
 .building_box ul {
-    display: grid;
+    /* display: grid;
     grid-template-columns: auto auto auto auto auto auto;
-    grid-gap: 10px;
+    grid-gap: 10px; */
+    display: flex;
+    flex-wrap: wrap;
     padding: 10px 6px;
+
 
 }
 
@@ -33,6 +36,9 @@ main {
     display: flex;
     overflow: hidden;
     border: 2px solid var(--color-blue-dark);
+    width: 250px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 .building_box ul li .sex{
     background-color: var(--color-blue-dark);

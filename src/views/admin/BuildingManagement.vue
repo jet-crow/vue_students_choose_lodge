@@ -39,7 +39,7 @@
                     <div class="sex">{{ item.sex }}</div>
                     <div class="left">{{ item.buildingName }}</div>
                     <div class="right">
-                        <span @click="jump(item.buildingId)">分配宿舍</span>
+                        <span @click="jump(item.buildingId,item.buildingName,item.sex)">分配宿舍</span>
                         <span @click="updateDialog(item)">楼栋修删</span>
                     </div>
                 </li>
@@ -124,6 +124,7 @@ const newBuilding = () => {
             message: '添加失败'
         });
     });
+    showFloor.value = false;
 };
 
 const deleteBuilding = () => {
@@ -173,11 +174,15 @@ const updateDialog = (item) => {
 
 
 
-const jump = (buildingIdValue) => {
+const jump = (buildingIdValue,buildingNameValue,SexValue) => {
+
     router.push({
         path: '/admin/dormitory',
         query: {
-            buildingId: buildingIdValue
+            buildingId: buildingIdValue,
+            buildingName:buildingNameValue,
+            sex:SexValue,
+
         }
     });
 };
