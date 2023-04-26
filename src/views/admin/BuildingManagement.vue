@@ -10,14 +10,14 @@
             新建 宿舍楼
         </section>
 
-        <el-dialog v-model="showFloor" title="修改宿舍楼" width="30%" class="floor_update dialog">
-            <el-input v-model="inputData.buildingName" placeholder="请输入宿舍楼号" v-show="true">
+        <el-dialog v-model="showFloor" :title="isAdd ? '新增宿舍楼':'修改宿舍楼'" width="30%" class="floor_update dialog">
+            <el-input v-model="inputData.buildingName" placeholder="请输入宿舍楼号" v-show="isAdd">
                 <template #prepend>宿舍楼号</template>
             </el-input>
-            <el-input v-model="inputData.buildingFloor" placeholder="请输入宿舍楼层" v-show="isAdd === true">
+            <el-input v-model="inputData.buildingFloor" placeholder="请输入宿舍楼层" v-show="isAdd">
                 <template #prepend>宿舍楼层</template>
             </el-input>
-            <el-input v-model="inputData.buildingRoomSum" placeholder="请输入每层房数" v-show="isAdd === true">
+            <el-input v-model="inputData.buildingRoomSum" placeholder="请输入每层房数" v-show="isAdd">
                 <template #prepend>每层房数</template>
             </el-input>
             <el-radio-group v-model="radio">
@@ -25,9 +25,11 @@
                 <el-radio-button label="女" />
             </el-radio-group>
             <template #footer>
-                <el-button type="primary" class="btn_right" v-show="isAdd" @click="newBuilding">确认新增</el-button>
-                <el-button type="primary" v-show="isAdd === false" @click="deleteBuilding">删除</el-button>
-                <el-button type="primary" v-show="isAdd === false">修改</el-button>
+                <el-button type="primary" v-show="isAdd" @click="newBuilding">确认新增</el-button>
+                <div style="display: flex; justify-content: space-between;">
+                <el-button type="primary" v-show="!isAdd" @click="deleteBuilding" >删除</el-button>
+                <el-button type="primary" v-show="!isAdd" @click="updateBuilding">修改</el-button>
+                 </div>
             </template>
         </el-dialog>
 
@@ -37,8 +39,8 @@
                     <div class="sex">{{ item.sex }}</div>
                     <div class="left">{{ item.buildingName }}</div>
                     <div class="right">
-                        <span @click="jump">分配宿舍</span>
-                        <span @click="updateDialog(item)">楼层修改</span>
+                        <span @click="jump(item.buildingId)">分配宿舍</span>
+                        <span @click="updateDialog(item)">楼栋修删</span>
                     </div>
                 </li>
 
@@ -142,21 +144,40 @@ const deleteBuilding = () => {
     showFloor.value = false;
 };
 
+const updateBuilding = () => {
+    proxy.$api.put("/building/updateBuildingSex", proxy.$qs.stringify({
+        'buildingId': selectedBuilding.value.buildingId,
+        'sex':radio.value
+    })).then(r => {
+        getQueryBuildingAll();
+        ElMessage({
+            type: 'success',
+            message: '修改成功'
+        });
+    }).catch(_ => {
+        ElMessage({
+            type: 'error',
+            message: '修改失败'
+        });
+    });
+    showFloor.value = false;
+};
+
+
 const updateDialog = (item) => {
     showFloor.value = true; 
     isAdd.value = false; 
     radio.value = item.sex; 
     selectedBuilding.value = item;
-    inputData.value.buildingName = item.buildingName;
 };
 
 
 
-const jump = () => {
+const jump = (buildingIdValue) => {
     router.push({
         path: '/admin/dormitory',
         query: {
-            id: '1'
+            buildingId: buildingIdValue
         }
     });
 };
