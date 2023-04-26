@@ -36,21 +36,21 @@ const routes = [
     path: '/admin',
     name: 'afterIndex',
     component: () => import('../views/admin/AfterIndex.vue'),
-    children:[
+    children: [
       {
-        path:'buildingManagement',
+        path: 'buildingManagement',
         component: () => import('../views/admin/BuildingManagement.vue')
-      },{
+      }, {
         path: 'roomManagement',
         component: () => import('../views/admin/RoomManagement.vue')
-      },{
+      }, {
         path: 'studentManagement',
         component: () => import('../views/admin/StudentManagement.vue')
-      },{
+      }, {
         path: 'dormitory',
         component: () => import('../views/admin/Dormitory.vue')
       }
-      
+
     ]
   }
 ]
@@ -64,14 +64,24 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+  let token = localStorage.getItem("token");
+  if (to.path === '/') {
+    if ((token === null || token === '')) next();
+    else next("/confirmationInfo");
+    return;
+  } else if ((token === null || token === '') && !to.path.includes("admin")) {
+    next('/')
+    return;
+  }
+
   //如果访问含admin的网址，必须有adminToken，否则直接返回到前端登录页面
   let adminToken = localStorage.getItem("adminToken");
   if (to.path === '/admin/login') {
-      next();
-      return;
+    next();
+    return;
   } else if (to.path.includes("admin") && (adminToken === null || adminToken === '')) {
-      next("/");
-      return;
+    next("/");
+    return;
   }
   next();
 });

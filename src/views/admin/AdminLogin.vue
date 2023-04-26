@@ -29,10 +29,8 @@ const login = () => {
                 type: 'success',
             });
             localStorage.setItem("adminToken", r.data.data.token);
-            localStorage.setItem("user", r.data.data.user);
-            router.push("/admin/buildingManagement");
+            router.push("/admin/studentManagement");
         } else {
-            console.log(123);
             ElMessage({
                 message: '登录失败',
                 type: 'error',

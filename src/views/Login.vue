@@ -25,8 +25,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import router from '@/router';
+import { ref, getCurrentInstance } from 'vue'
 
+const { proxy } = getCurrentInstance();
 const candidateNumber = ref('');
 const idCard = ref('');
 const showCNumber = ref(false), showIdCard = ref(false);
@@ -35,15 +37,30 @@ const showCNumber = ref(false), showIdCard = ref(false);
 function checkStudentInfo() {
     candidateNumber.value == '' ? showCNumber.value = true : showCNumber.value = false;
     idCard.value == '' ? showIdCard.value = true : showIdCard.value = false;
-    return !(showCNumber.value || showIdCard.value);
+    return (showCNumber.value || showIdCard.value);
 }
 
 function login() {
-    console.log(checkStudentInfo());
-}
+    if (checkStudentInfo()) return;
+    proxy.$api.post("/account/login", proxy.$qs.stringify({
+        user: candidateNumber.value,
+        password: idCard.value
+    })).then(r => {
+        if (r.data.status == 500 || r.data.data.level != 0) {
+            proxy.$showFailToast("登录失败");
+            return;
+        }
+        proxy.$showSuccessToast("登录成功");
+        localStorage.setItem("token", r.data.data.token);
+        // console.log(r.data.data.token);
+        router.push("/confirmationInfo");
 
+
+    })
+
+
+}
 </script>
 
 
-<style scoped src="../assets/css/views/login.css">
-</style>
+<style scoped src="../assets/css/views/login.css"></style>
