@@ -50,10 +50,10 @@ main {
     display: block;
 }
 
-.label_tag>span:hover {
-    color: white;
-    border: 1px solid white;
-    background-color: #1c4c8c;
+.tag_choose{
+    color: white !important;
+    border: 1px solid white !important;
+    background-color: #1c4c8c !important;
 }
 
 .personal_msg {
