@@ -54,11 +54,6 @@
                     <p style="width: 40px;">姓名:</p>
                 </template>
             </el-input>
-            <el-input size="large" placeholder="请输入专业" v-model="userData.professional">
-                <template #prepend>
-                    <p style="width: 40px;">专业:</p>
-                </template>
-            </el-input>
             <el-input size="large" placeholder="请输入电话" v-model="userData.tel">
                 <template #prepend>
                     <p style="width: 40px;">电话:</p>
@@ -71,6 +66,13 @@
             </el-input>
             <div style=" height: 10px;"></div>
             <div class="options_box">
+                <label class="item">
+                    <span style="padding: 0 23.5px;">专业:</span>
+                    <el-select v-model="userData.professional" class="m-2" placeholder="Select">
+                        <el-option v-for="item in options" :key="item.professionalId" :label="item.professionalContent"
+                            :value="item.professionalContent" />
+                    </el-select>
+                </label>
                 <label class="item">
                     <span>性别：</span>
                     <el-radio-group v-model="userData.sex">
@@ -110,7 +112,6 @@ import { computed, ref, getCurrentInstance } from 'vue'
 
 const { proxy } = getCurrentInstance();
 const tableData = ref([])
-
 //请求所有用户信息
 proxy.$api.get("/userInfo/allUser").then(r => {
     console.log(r.data);
@@ -141,6 +142,13 @@ const handleDelete = (index, row) => {
     console.log(index, row);
 }
 
+
+//专业选择框
+const options = ref([])
+proxy.$api.get("/professional/addProfessional").then(r => {
+    options.value = r.data;
+    console.log(options.value);
+})
 //弹窗
 const show = ref(false);
 const isAdd = ref(false);
@@ -242,6 +250,7 @@ main {
 
 .options_box {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .item {
@@ -249,6 +258,7 @@ main {
     display: flex;
     align-items: center;
     margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 .item span {
