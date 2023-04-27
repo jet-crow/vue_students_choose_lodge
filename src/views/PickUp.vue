@@ -84,12 +84,26 @@ const choose = (tag) => {
 }
 //提交
 const submitTag = () => {
+    if(tagChooseData.length == 0){
+        ElMessage({
+            message: '请选择标签',
+            type: 'error',
+        });
+        return
+    }
     if (msgCount.value != 0) {
         //修改个签
         proxy.$api.put("/userInfo/updateIntroduce", proxy.$qs.stringify({
             introduce: personalMsg.value
         }))
+    }else{
+        ElMessage({
+            message: '个性签名不能为空',
+            type: 'error',
+        });
+        return
     }
+    
     proxy.$api.get("/userSelectedTag/isUpdateSelectedTags").then(r => {
         if (r.data) {//修改,    //如果选择过就调用修改接口
             proxy.$api.post("/userSelectedTag/updateTag", proxy.$qs.stringify({
