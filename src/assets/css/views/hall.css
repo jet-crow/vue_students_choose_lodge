@@ -23,6 +23,13 @@ nav h1 {
     font-weight: 600;
     color: #FFFFFF;
 }
+nav span {
+
+    font-size: 1em;
+    line-height: 6vh;
+    font-weight: 600;
+    color: #FFFFFF;
+}
 
 .search::before {
     font-size: 1.6em;

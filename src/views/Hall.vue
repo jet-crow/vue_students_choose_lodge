@@ -1,7 +1,9 @@
 <!-- 选舍大厅 -->
 <template>
     <nav>
-        <h1>选舍大厅</h1>
+        <h1>选舍大厅</h1>        
+        <span style="padding-left:1rem" @click="logOut">{{ userName }}<van-icon name="arrow" /></span>
+        <span style="flex: 1;"></span>
         <van-icon class="search" name="search" @click="checked_search = true" />
         <div class="search_box" v-show="checked_search">
             <input id="Search" type="number">
@@ -64,6 +66,8 @@ const checked_search = ref(false);
 const sortChecked = ref(false);
 const sortType = ref("推荐排序");
 
+const userName = ref(localStorage.getItem("name"))
+
 const roomData = ref([]);
 const userTagData = ref([]);
 const getRoomData = (isSimilarity) => {
@@ -75,6 +79,9 @@ const getRoomData = (isSimilarity) => {
         }
     });
 };
+
+
+
 // 默认数据
 getRoomData(true);
 
@@ -184,6 +191,7 @@ const jumpRoom = (item) => {
 
 const myRoom = () => {
     proxy.$api.get('/userSelectedRoom/myRoom').then(res => {
+        console.log(res.data);
         if (res.data == '') {
             ElMessage({
                 type: 'error',
@@ -196,14 +204,15 @@ const myRoom = () => {
             query: {
                 roomId: res.data.roomId,
                 roomName: res.data.roomName,
-                buildingId: res.room.buildingId
+                buildingId: res.data.buildingId
             }
         });
     });
-
-
 }
-
+const logOut = ()=>{
+    localStorage.clear();
+    router.push("/");
+}
 </script>
 
 

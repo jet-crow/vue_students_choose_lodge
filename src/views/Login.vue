@@ -26,7 +26,7 @@
 
 <script setup>
 import router from '@/router';
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance } from 'vue';
 
 const { proxy } = getCurrentInstance();
 const candidateNumber = ref('');
@@ -53,10 +53,13 @@ function login() {
         proxy.$showSuccessToast("登录成功");
         localStorage.setItem("token", r.data.data.token);
         // console.log(r.data.data.token);
+        proxy.$api.get('/userInfo/myUserInfo').then(res => {
+            localStorage.setItem("uid", res.data.uid);
+            localStorage.setItem("name", res.data.name);
+        });
         router.push("/confirmationInfo");
 
-
-    })
+    });
 
 
 }
