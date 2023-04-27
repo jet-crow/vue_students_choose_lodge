@@ -14,6 +14,7 @@
     <main>
         <div class="user_info">
             <ul>
+                {{ roomData }}
                 <li :class="item.userInfo ? 'user_info_true' : 'user_info_false'" @click="joinRoom(item)"
                     v-for="item in 4" :key="item.id">
                     <template v-if="item.userInfo">
@@ -75,9 +76,9 @@ proxy.$api.get("/room/userCommonTag?roomId=" + roomId).then(r => {
     commonTag.value = r.data;
 })
 //获取房间信息
-proxy.$api.get("/room/roomInfo?roomId="+roomId).then(r=>{
-  roomData.value=r.data;
+proxy.$api.get("/room/roomInfo?roomId=" + roomId).then(r=>{
     console.log(r.data);
+  roomData.value=r.data;
 })
 const tags = reactive([{
     id: 0,

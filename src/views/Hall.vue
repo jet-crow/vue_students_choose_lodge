@@ -13,7 +13,7 @@
         <ul>
             <li @click="addRecommendRoom">推荐加入</li>
             <li @click="addEmptyRoom">加入空房</li>
-            <li>我的房间</li>
+            <li @click="myRoom">我的房间</li>
             <!-- 点击后会变成顺序推荐 -->
             <li @click="sortList">
                 {{ sortType }}
@@ -24,7 +24,7 @@
 
     <main>
         <ul>
-            <li v-for="(item, index) in roomData">
+            <li v-for="(item, index) in roomData" @click="jumpRoom(item.room.roomId, item.room.roomName)">
                 <div class="room_no">{{ item.room.roomName }}</div>
                 <div class="room_info">
                     <div class="lable_tag">
@@ -132,7 +132,7 @@ const addEmptyRoom = () => {
     for (const item of roomData.value) {
         if (item.userSelectedRoom.length == 0) {
             router.push({
-                path: '/hallInfo?roomId=522&roomName=A-105',
+                path: '/hallInfo',
                 query: {
                     roomId: item.room.roomId,
                     roomName: item.room.roomName,
@@ -153,12 +153,12 @@ const addRecommendRoom = () => {
 
         // 顺序查找只要没满人（人数不等于4）就可以加入
         for (const item of roomData.value) {
-            if(item.userSelectedRoom.length != 4){
+            if (item.userSelectedRoom.length != 4) {
                 router.push({
-                    path: '/hallInfo?roomId=522&roomName=A-105',
+                    path: '/hallInfo',
                     query: {
                         roomId: item.room.roomId,
-                        roomName:item.room.roomName,
+                        roomName: item.room.roomName,
                     }
                 });
                 return;
@@ -166,6 +166,37 @@ const addRecommendRoom = () => {
 
         }
     });
+};
+
+const jumpRoom = (roomIdValue, roomNameValue) => {
+    router.push({
+        path: '/hallInfo',
+        query: {
+            roomId: roomIdValue,
+            roomName: roomNameValue,
+        }
+    });
+};
+
+const myRoom = () => {
+    proxy.$api.get('/userSelectedRoom/myRoom').then(res => {
+        if (res.data == '') {
+            ElMessage({
+                type: 'error',
+                message: '您还没有选择宿舍'
+            });
+            return;
+        }
+        router.push({
+            path: '/hallInfo',
+            query: {
+                roomId: res.data.roomId,
+                roomName: res.data.roomName,
+            }
+        });
+    });
+
+
 }
 
 </script>
