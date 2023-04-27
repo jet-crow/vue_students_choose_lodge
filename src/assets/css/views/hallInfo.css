@@ -45,6 +45,7 @@ aside .tag_box {
     padding-top: 1vh;
     padding-bottom: 2vh;
     overflow: hidden;
+    align-items: center;
 }
 
 aside .tag_box>span {
@@ -86,7 +87,6 @@ main {
     padding: 0 6vw;
 }
 
-main .user_info {}
 
 main .user_info ul {
     display: flex;
