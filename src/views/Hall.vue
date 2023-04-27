@@ -31,6 +31,9 @@
                 <div class="room_info">
                     <div class="lable_tag">
                         <ul>
+                            <template v-if="item.commonTag.length == 0">
+                                <span style="writing-mode: tb; color:var(--color-blue-light)">JOIN</span>
+                            </template>
                             <template v-if="item.commonTag.length != 0">
                                 <li v-for="indexa in (item.commonTag.length < 3 ? item.commonTag.length : 3)">{{
                                     item.commonTag[indexa - 1] }}</li>
