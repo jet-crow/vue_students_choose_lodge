@@ -24,28 +24,29 @@
 
     <main>
         <ul>
-            <li v-for="(item,index) in roomData">
+            <li v-for="(item, index) in roomData">
                 <div class="room_no">{{ item.room.roomName }}</div>
                 <div class="room_info">
                     <div class="lable_tag">
                         <ul>
-                            <li>篮球</li>
-                            <li>唱</li>
-                            <li>rap</li>
+                            <template v-if="item.commonTag.length != 0">
+                                <li v-for="indexa in (item.commonTag.length < 3 ? item.commonTag.length : 3)">{{
+                                    item.commonTag[indexa-1] }}</li>
+                            </template>
                         </ul>
                     </div>
                     <div class="room_item">
                         <ul>
-                            <!-- {{item.userSelectedRoom[i-1]?.bedNumber}} -->
+
                             <li v-for="i in 4">
-                                <div class="room_item_box" :data_checked="roomChecked(item,i)"></div>
+                                <div class="room_item_box" :data_checked="roomChecked(item, i)"></div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </li>
 
-           
+
 
             <!-- 这俩不能丢 -->
             <li></li>
@@ -59,20 +60,20 @@ import { ref, getCurrentInstance } from 'vue';
 import router from "@/router";
 const { proxy } = getCurrentInstance();
 
-const roomChecked = (item,i) =>{
-    for(let k = 0; k < 4; k++){
-        if(item.userSelectedRoom[k]?.bedNumber == i){
-            return "true"
+const roomChecked = (item, i) => {
+    for (let k = 0; k < 4; k++) {
+        if (item.userSelectedRoom[k]?.bedNumber == i) {
+            return "true";
         }
     }
-}
+};
 
 
 const roomData = ref([]);
 proxy.$api.get('/room/queryMyAllRoom').then(res => {
-        console.log(res.data);
-        roomData.value = res.data;
-        console.log(roomData.value);
+    console.log(res.data);
+    roomData.value = res.data;
+    console.log(roomData.value);
 });
 
 // 显示和隐藏搜索框

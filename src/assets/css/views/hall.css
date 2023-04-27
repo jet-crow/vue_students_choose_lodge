@@ -199,6 +199,9 @@ main ul li .lable_tag {
     text-align: center;
     line-height: 1.6vh;
     border-radius: 1vh;
+    overflow: hidden;  
+    /* text-overflow: ellipsis;  */
+    white-space: nowrap; 
 }
 
 
