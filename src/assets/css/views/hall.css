@@ -23,6 +23,13 @@ nav h1 {
     font-weight: 600;
     color: #FFFFFF;
 }
+nav span {
+
+    font-size: 1em;
+    line-height: 6vh;
+    font-weight: 600;
+    color: #FFFFFF;
+}
 
 .search::before {
     font-size: 1.6em;
@@ -199,6 +206,9 @@ main ul li .lable_tag {
     text-align: center;
     line-height: 1.6vh;
     border-radius: 1vh;
+    overflow: hidden;  
+    /* text-overflow: ellipsis;  */
+    white-space: nowrap; 
 }
 
 

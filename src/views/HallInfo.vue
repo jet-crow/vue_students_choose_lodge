@@ -6,7 +6,7 @@
 
     <aside>
         <div class="tag_box" :style="opne ? '' : 'height: 8.5vh;'">
-            <span v-for="(item,index) in commonTag" :key="index">{{ item }}</span>
+            <span v-for="(item, index) in commonTag" :key="index">{{ item }}</span>
             <div id="Open" @click="opne = !opne">展开</div>
         </div>
     </aside>
@@ -14,33 +14,35 @@
     <main>
         <div class="user_info">
             <ul>
-                <li :class="item.userInfo ? 'user_info_true' : 'user_info_false'" @click="joinRoom(item)"
-                    v-for="item in 4" :key="item.id">
-                    <template v-if="item.userInfo">
+                <li :class="roomData.find(r => r.bedNumber == i) != null ? 'user_info_true' : 'user_info_false'"
+                    v-for="(i, index) in 4" @click="roomData.find(r => r.bedNumber == i) == null ? joinRoom(i) : null">
+                    <!-- {{ roomData.find(r => r.bedNumber == i)  }} -->
+                    <template v-if="roomData.find(r => r.bedNumber == i) != null">
                         <!-- 上部 名字 标签 -->
                         <div class="user_info_top">
                             <span class="user_info_top_name">
-                                {{ item.user.userInfo.name }}
+                                {{ roomData.find(r => r.bedNumber == i).userInfo.name }}
                             </span>
                             <div class="user_info_top_tag">
-                                <span v-for="tag in item.tags">{{ tag }}</span>
+                                <span v-for="tag in roomData.find(r => r.bedNumber == i).tags">{{ tag }}</span>
                             </div>
                         </div>
                         <!-- 下部 简介 -->
                         <p class="user_info_end">
-                            {{ item.userInfo.introduce }}
+                            {{ roomData.find(r => r.bedNumber == i).userInfo.introduce }}
                         </p>
                         <!-- 底部 序号层 -->
-                        <div class="user_info_true_index">{{ item.id + 1 }}</div>
+                        <div class="user_info_true_index">{{ i }}</div>
                     </template>
 
                     <template v-else>
-                        <p class="user_info_left">{{ item.id + 1 }}</p>
+                        <p class="user_info_left">{{ i }}</p>
                         <div class="user_info_right">
                             <p>加入</p>
                             <p>Pick UP</p>
                         </div>
                     </template>
+
                 </li>
             </ul>
         </div>
@@ -67,62 +69,36 @@ import router from '@/router';
 import { reactive, ref, getCurrentInstance } from 'vue';
 const roomId = router.currentRoute.value.query.roomId;
 const roomName = router.currentRoute.value.query.roomName;
+const buildingId = router.currentRoute.value.query.buildingId;
 const { proxy } = getCurrentInstance();
 //获取共同标签
 const commonTag = ref([]);
 proxy.$api.get("/room/userCommonTag?roomId=" + roomId).then(r => {
     console.log(r.data);
     commonTag.value = r.data;
-})
+});
+const roomData = ref([]);
 //获取房间信息
-proxy.$api.get("/room/roomInfo?roomId="+roomId).then(r=>{
-  roomData.value=r.data;
+proxy.$api.get("/room/roomInfo?roomId=" + roomId).then(r => {
+    roomData.value = r.data || [];
     console.log(r.data);
-})
+
+});
 const tags = reactive([{
     id: 0,
     tag: "篮球"
 }]);
-const roomData = ref([
-    {
-        id: 0,
-        user: {
-            name: "费玉清",
-            info: "你滚我喜欢送你滚我喜欢送你滚我喜欢送你滚",
-            tags: ["篮球", "爱睡觉", "不让舍友睡觉", "睡觉的时候喜欢大吵大闹", "篮球", "篮球", "篮球", "篮球", "篮球", "篮球"]
-        },
-        status: true
-    },
-    {
-        id: 1,
-        user: {
-            name: "薛之谦",
-            info: "asda",
-            tags: ["篮球", "of"]
-        },
-        status: true
-    },
-    {
-        id: 2,
-        user: {},
-        status: false
-    },
-    {
-        id: 3,
-        user: {},
-        status: false
-    },
-]);
+
 //弹窗
 const showRoom = ref(false);
 //是否展开
-const opne = ref(false)
+const opne = ref(false);
 
 //加入房间
-function joinRoom(item) {
-    if (item.status == true) return;
-    showRoom.value = true;
-    console.log(item);
+function joinRoom(bedNumber) {
+    console.log(roomId);
+    console.log(bedNumber);
+    console.log(buildingId);
 }
 </script>
 
