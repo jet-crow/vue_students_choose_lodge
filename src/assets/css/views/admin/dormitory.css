@@ -1,9 +1,9 @@
-
 #se {
     position: relative;
     width: 100%;
-    height: calc(100% - 35px - 64px);
-    -moz-user-select: none;
+    height: calc(100% - 35px -64px);
+    margin-bottom: calc(35px + 64px);
+    -moz-user-select: no1ne;
     /*火狐*/
     -webkit-user-select: none;
     /*webkit浏览器*/
@@ -37,7 +37,8 @@
     padding-left: 10px;
 
 }
-#se ul li span{
+
+#se ul li span {
     padding: 8px;
 }
 
@@ -74,11 +75,12 @@ footer {
     background-color: #3b70c633;
 
 }
-footer span{
+
+footer span {
     padding-right: 30px;
 }
 
-.professional{
+.professional {
     background-color: var(--color-blue-dark);
     color: #FFF;
     /* margin-left: 10px; */
