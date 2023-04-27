@@ -24,7 +24,7 @@
 
     <main>
         <ul>
-            <li v-for="(item, index) in roomData" @click="jumpRoom(item.room.roomId, item.room.roomName)">
+            <li v-for="(item, index) in roomData" @click="jumpRoom(item)">
                 <div class="room_no">{{ item.room.roomName }}</div>
                 <div class="room_info">
                     <div class="lable_tag">
@@ -136,6 +136,7 @@ const addEmptyRoom = () => {
                 query: {
                     roomId: item.room.roomId,
                     roomName: item.room.roomName,
+                    buildingId: item.room.buildingId
                 }
             });
             return;
@@ -159,6 +160,7 @@ const addRecommendRoom = () => {
                     query: {
                         roomId: item.room.roomId,
                         roomName: item.room.roomName,
+                        buildingId: item.room.buildingId
                     }
                 });
                 return;
@@ -168,12 +170,14 @@ const addRecommendRoom = () => {
     });
 };
 
-const jumpRoom = (roomIdValue, roomNameValue) => {
+const jumpRoom = (item) => {
+    console.log(item);
     router.push({
         path: '/hallInfo',
         query: {
-            roomId: roomIdValue,
-            roomName: roomNameValue,
+            roomId: item.room.roomId,
+            roomName: item.room.roomName,
+            buildingId: item.room.buildingId
         }
     });
 };
@@ -192,6 +196,7 @@ const myRoom = () => {
             query: {
                 roomId: res.data.roomId,
                 roomName: res.data.roomName,
+                buildingId: res.room.buildingId
             }
         });
     });
