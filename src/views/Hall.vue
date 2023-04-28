@@ -1,23 +1,23 @@
 <!-- 选舍大厅 -->
 <template>
     <nav>
-        <h1>选舍大厅</h1>        
+        <h1>选舍大厅</h1>
         <span style="padding-left:1rem" @click="logOut">{{ userName }}<van-icon name="arrow" /></span>
         <span style="flex: 1;"></span>
         <van-icon class="search" name="search" @click="checked_search = true" />
         <div class="search_box" v-show="checked_search">
-            <input id="Search" type="text"  v-model="search" >
-            <van-icon class="close" name="cross" @click="checked_search = false;search = ''" />
+            <input id="Search" type="text" v-model="search">
+            <van-icon class="close" name="cross" @click="checked_search = false; search = ''" />
         </div>
     </nav>
     <!-- 排序按钮 -->
     <aside>
         <ul>
-            <li @click="addRecommendRoom">推荐加入</li>
-            <li @click="addEmptyRoom">加入空房</li>
-            <li @click="myRoom">我的房间</li>
+            <li @click=" addRecommendRoom ">推荐加入</li>
+            <li @click=" addEmptyRoom ">加入空房</li>
+            <li @click=" myRoom ">我的房间</li>
             <!-- 点击后会变成顺序推荐 -->
-            <li @click="sortList">
+            <li @click=" sortList ">
                 {{ sortType }}
                 <van-icon class="replay" name="replay" />
             </li>
@@ -26,24 +26,24 @@
 
     <main>
         <ul>
-            <li v-for="(item, index) in filterRoomData" @click="jumpRoom(item)">
+            <li v-for="(  item, index  ) in   filterRoomData  " @click=" jumpRoom(item) ">
                 <div class="room_no">{{ item.room.roomName }}</div>
                 <div class="room_info">
                     <div class="lable_tag">
                         <ul>
-                            <template v-if="item.commonTag.length == 0">
+                            <template v-if=" item.commonTag.length == 0 ">
                                 <span style="writing-mode: tb; color:var(--color-blue-light)">JOIN</span>
                             </template>
-                            <template v-if="item.commonTag.length != 0">
-                                <li v-for="indexa in (item.commonTag.length < 3 ? item.commonTag.length : 3)">{{
+                            <template v-if=" item.commonTag.length != 0 ">
+                                <li v-for="  indexa   in   (item.commonTag.length < 3 ? item.commonTag.length : 3)  ">{{
                                     item.commonTag[indexa - 1] }}</li>
                             </template>
                         </ul>
                     </div>
                     <div class="room_item">
                         <ul>
-                            <li v-for="i in 4">
-                                <div class="room_item_box" :data_checked="roomChecked(item, i)"></div>
+                            <li v-for="  i   in   4  ">
+                                <div class="room_item_box" :data_checked=" roomChecked(item, i) "></div>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { computed, ref, getCurrentInstance } from 'vue';
+import { computed, ref, getCurrentInstance, onBeforeMount } from 'vue';
 import router from "@/router";
 const { proxy } = getCurrentInstance();
 // 显示和隐藏搜索框
@@ -75,7 +75,7 @@ const roomData = ref([]);
 let userTagData = ref([]);
 const getRoomData = (isSimilarity) => {
     proxy.$api.get('/room/queryMyAllRoom').then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         roomData.value = res.data;
         if (isSimilarity) {
             roomData.value = sortRoomsBySimilarity(userTagData.value, roomData.value);
@@ -84,7 +84,9 @@ const getRoomData = (isSimilarity) => {
 };
 
 // 默认数据
-getRoomData(true);
+onBeforeMount(() => {
+    getRoomData(true)
+})
 
 const search = ref('');
 const filterRoomData = computed(() => {
@@ -93,7 +95,7 @@ const filterRoomData = computed(() => {
 });
 
 proxy.$api.get('/userSelectedTag/queryUserTag').then(res => {
-    console.log(res.data);
+    // console.log(res.data);
     userTagData.value = res.data;
     // console.log(userTagData.value);
 });
@@ -162,7 +164,7 @@ const addRecommendRoom = () => {
     // 首先改为推荐排序
     sortType.value = "推荐排序";
     proxy.$api.get('/room/queryMyAllRoom').then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         roomData.value = res.data;
         roomData.value = sortRoomsBySimilarity(userTagData.value, roomData.value);
 
@@ -185,7 +187,7 @@ const addRecommendRoom = () => {
 };
 
 const jumpRoom = (item) => {
-    console.log(item);
+    // console.log(item);
     router.push({
         path: '/hallInfo',
         query: {
@@ -216,7 +218,7 @@ const myRoom = () => {
         });
     });
 }
-const logOut = ()=>{
+const logOut = () => {
     localStorage.clear();
     router.push("/");
 }

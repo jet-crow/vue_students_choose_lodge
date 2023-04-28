@@ -1,7 +1,7 @@
 #se {
     position: relative;
     width: 100%;
-    height: calc(100% - 35px -64px);
+    height: calc(100% - 35px - 64px);
     margin-bottom: calc(35px + 64px);
     -moz-user-select: no1ne;
     /*火狐*/

@@ -1,13 +1,14 @@
 <template>
     <el-page-header @back="$router.back()">
         <template #content>
-            <span class="text-large font-600 mr-3"> 分配{{buildingName}}栋宿舍</span>
+            <span class="text-large font-600 mr-3"> 分配{{ buildingName }}栋宿舍</span>
         </template>
     </el-page-header>
     <div id='se' @mousedown.stop="handleBox">
         <ul id="ul">
             <li v-for="(item, index) in list" :key="index" @click.stop="handleClick(index)" :class="item.isS ? 'isS' : ''"
-                class="li" :style="{paddingRight:(!item.professional? '10px':'0px')}"><span>{{ item.roomName }}</span><span class="professional" v-show="item.professional ? true : false">{{ item.professional}}</span>
+                class="li" :style="{ paddingRight: (!item.professional ? '10px' : '0px') }"><span>{{ item.roomName }}</span><span
+                    class="professional" v-show="item.professional ? true : false">{{ item.professional }}</span>
             </li>
         </ul>
         <div v-show="isShowSeBox" id="selection"></div>
@@ -105,8 +106,8 @@ export default {
             //框选中的元素
             selectedRoomIdArr: [],
             // 传过来的数据
-            sex:'',
-            buildingName:''
+            sex: '',
+            buildingName: ''
         };
     },
     created() {
@@ -130,7 +131,8 @@ export default {
     mounted() {
         this.selectBox = document.getElementById("selection");
         this.parentBox = document.getElementById("se");
-        this.handleScroll();
+        setTimeout(this.handleScroll, 500)
+
     },
     methods: {
         handleBox(even) {
@@ -293,7 +295,7 @@ export default {
                 location.reload();
                 ElMessage({
                     type: 'success',
-                    message: '修改成功 ' + r.data + ' 间宿舍' 
+                    message: '修改成功 ' + r.data + ' 间宿舍'
                 });
             }).catch(_ => {
                 ElMessage({
@@ -301,7 +303,7 @@ export default {
                     message: '修改失败'
                 });
             });
-            
+
 
         }
 
