@@ -6,8 +6,8 @@
         <span style="flex: 1;"></span>
         <van-icon class="search" name="search" @click="checked_search = true" />
         <div class="search_box" v-show="checked_search">
-            <input id="Search" type="number">
-            <van-icon class="close" name="cross" @click="checked_search = false" />
+            <input id="Search" type="text"  v-model="search" >
+            <van-icon class="close" name="cross" @click="checked_search = false;search = ''" />
         </div>
     </nav>
     <!-- 排序按钮 -->
@@ -26,7 +26,7 @@
 
     <main>
         <ul>
-            <li v-for="(item, index) in roomData" @click="jumpRoom(item)">
+            <li v-for="(item, index) in filterRoomData" @click="jumpRoom(item)">
                 <div class="room_no">{{ item.room.roomName }}</div>
                 <div class="room_info">
                     <div class="lable_tag">
@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from 'vue';
+import { computed, ref, getCurrentInstance } from 'vue';
 import router from "@/router";
 const { proxy } = getCurrentInstance();
 // 显示和隐藏搜索框
@@ -72,7 +72,7 @@ const sortType = ref("推荐排序");
 const userName = ref(localStorage.getItem("name"))
 
 const roomData = ref([]);
-const userTagData = ref([]);
+let userTagData = ref([]);
 const getRoomData = (isSimilarity) => {
     proxy.$api.get('/room/queryMyAllRoom').then(res => {
         console.log(res.data);
@@ -83,10 +83,14 @@ const getRoomData = (isSimilarity) => {
     });
 };
 
-
-
 // 默认数据
 getRoomData(true);
+
+const search = ref('');
+const filterRoomData = computed(() => {
+    return roomData.value.filter((data) => !search.value ||
+        (data.room.roomName + "").includes(search.value));
+});
 
 proxy.$api.get('/userSelectedTag/queryUserTag').then(res => {
     console.log(res.data);
