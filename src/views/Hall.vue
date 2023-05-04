@@ -2,12 +2,12 @@
 <template>
     <nav>
         <h1>选舍大厅</h1>
-        <span style="padding-left:1rem" @click="logOut">{{ userName }}<van-icon name="arrow" /></span>
+        <span style="padding-left:1rem" @click="logOut">{{ userName }}<van-icon name="arrow"/></span>
         <span style="flex: 1;"></span>
-        <van-icon class="search" name="search" @click="checked_search = true" />
+        <van-icon class="search" name="search" @click="checked_search = true"/>
         <div class="search_box" v-show="checked_search">
             <input id="Search" type="text" v-model="search">
-            <van-icon class="close" name="cross" @click="checked_search = false; search = ''" />
+            <van-icon class="close" name="cross" @click="checked_search = false; search = ''"/>
         </div>
     </nav>
     <!-- 排序按钮 -->
@@ -19,7 +19,7 @@
             <!-- 点击后会变成顺序推荐 -->
             <li @click=" sortList ">
                 {{ sortType }}
-                <van-icon class="replay" name="replay" />
+                <van-icon class="replay" name="replay"/>
             </li>
         </ul>
     </aside>
@@ -36,7 +36,9 @@
                             </template>
                             <template v-if=" item.commonTag.length != 0 ">
                                 <li v-for="  indexa   in   (item.commonTag.length < 3 ? item.commonTag.length : 3)  ">{{
-                                    item.commonTag[indexa - 1] }}</li>
+                                        item.commonTag[indexa - 1]
+                                    }}
+                                </li>
                             </template>
                         </ul>
                     </div>
@@ -49,9 +51,6 @@
                     </div>
                 </div>
             </li>
-
-
-
             <!-- 这俩不能丢 -->
             <li></li>
             <li></li>
@@ -60,9 +59,10 @@
 </template>
 
 <script setup>
-import { computed, ref, getCurrentInstance, onBeforeMount } from 'vue';
+import {computed, ref, getCurrentInstance, onBeforeMount} from 'vue';
 import router from "@/router";
-const { proxy } = getCurrentInstance();
+
+const {proxy} = getCurrentInstance();
 // 显示和隐藏搜索框
 const checked_search = ref(false);
 // 顺序显示 和 推荐显示
@@ -80,6 +80,7 @@ const getRoomData = (isSimilarity) => {
         if (isSimilarity) {
             roomData.value = sortRoomsBySimilarity(userTagData.value, roomData.value);
         }
+        // console.log(roomData.value)
     });
 };
 
@@ -91,7 +92,9 @@ onBeforeMount(() => {
 const search = ref('');
 const filterRoomData = computed(() => {
     return roomData.value.filter((data) => !search.value ||
-        (data.room.roomName + "").includes(search.value));
+            (data.room.roomName + "").includes(search.value) ||
+            data.commonTag.find(i => i == search.value) !== undefined
+    );
 });
 
 proxy.$api.get('/userSelectedTag/queryUserTag').then(res => {
