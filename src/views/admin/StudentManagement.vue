@@ -34,7 +34,7 @@
             </el-table-column>
         </el-table>
         <!-- 弹窗 -->
-        <el-dialog v-model="show" @close="close" :title="isAdd ? '新增用户信息' : '修改用户信息'" width="60%" align-center>
+        <el-dialog v-model="show" :title="isAdd ? '新增用户信息' : '修改用户信息'" width="60%" align-center>
             <div>学生账号：</div>
             <el-input size="large" placeholder="请输入用户名" v-model="userData.user">
                 <template #prepend>账号:</template>
@@ -135,7 +135,7 @@ const handleDelete = (index, row) => {
         if (r.data) {
             ElMessage({
                 type: "success",
-                message: '添加用户成功',
+                message: '删除用户成功',
             })
         }
     })
@@ -220,12 +220,13 @@ const addUserShow = () => {
 }
 const addUser = () => {
     textGoState();
-    tableData.value.push(userData.value);
     proxy.$api.post("/userInfo/addUser", proxy.$qs.stringify(userData.value)).then(r => {
         ElMessage({
             type: "success",
             message: "添加成功"
         })
+        userData.value.uid=r.data.uid;
+        tableData.value.push(userData.value);
     })
     show.value = false;
 }
