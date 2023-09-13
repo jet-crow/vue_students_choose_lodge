@@ -5,19 +5,19 @@
             <el-menu default-active="studentManagement" :router="true" @open="handleOpen" @close="handleClose">
                 <el-menu-item index="studentManagement">
                     <el-icon>
-                        <setting />
+                        <user />
                     </el-icon>
                     <span>学生管理</span>
                 </el-menu-item>
                 <el-menu-item index="buildingManagement">
                     <el-icon>
-                        <setting />
+                        <school />
                     </el-icon>
                     <span>宿楼管理</span>
                 </el-menu-item>
                 <el-menu-item index="roomManagement">
                     <el-icon>
-                        <setting />
+                        <house />
                     </el-icon>
                     <span>房间管理</span>
                 </el-menu-item>
@@ -32,7 +32,7 @@
 
 <script setup>
 import {
-    Setting,
+    User,House,School
 } from '@element-plus/icons-vue'
 import Logo from "@/components/Logo.vue";
 import router from '@/router';
@@ -45,7 +45,7 @@ const handleClose = (key, keyPath) => {
 }
 const exit = () => {
     localStorage.removeItem("adminToken");
-    router.replace("/")
+    router.replace("/admin/login")
 }
 </script>
 <style scoped>
