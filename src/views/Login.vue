@@ -3,7 +3,7 @@
         <main>
             <div class="title">
                 <span>欢迎使用</span>
-                <h1>广职选舍平台</h1>
+                <h1>东软选舍平台</h1>
             </div>
 
             <div class="login_from">

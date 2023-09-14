@@ -2,7 +2,7 @@
     <Logo />
     <main>
         <section class="login_box">
-            <el-text class="title" type="primary">广职选舍管理端</el-text>
+            <el-text class="title" type="primary">东软选舍管理端</el-text>
             <el-input class="font_size-2xl" v-model="input" placeholder="请输入您的管理员账号" clearable />
             <el-input class="font_size-2xl" v-model="password" type="password" placeholder="请输入您的管理员密码" show-password />
             <el-button class="font_size-2xl btn" type="primary" round @click="login">登录</el-button>

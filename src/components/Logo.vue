@@ -15,7 +15,7 @@ nav {
     background-image: url(../assets/images/logoCenterBlue.png);
     background-position: 15px center;
     background-repeat: no-repeat;
-    background-size: auto 90%;
+    background-size: auto 50%;
 }
 
 /* nav End */

@@ -39,7 +39,7 @@
                     <template v-else>
                         <p class="user_info_left">{{ i }}</p>
                         <div class="user_info_right">
-                            <p>加入</p>
+                            <p>申请</p>
                             <p>Pick UP</p>
                         </div>
                     </template>
