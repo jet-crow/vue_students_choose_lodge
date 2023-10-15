@@ -1,3 +1,5 @@
+# 介绍
+这是一个学生选宿平台
 # vue_students_choose_lodge
 
 ## Project setup
