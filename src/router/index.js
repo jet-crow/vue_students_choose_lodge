@@ -10,22 +10,22 @@ const routes = [
   {
     path: '/confirmationInfo',
     name: 'confirmationInfo',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ConfirmationInfo.vue')
+    component: () => import(/* webpackChunkName: "ConfirmationInfo" */ '../views/ConfirmationInfo.vue')
   },
   {
     path: '/pickUp',
     name: 'pickUp',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PickUp.vue')
+    component: () => import(/* webpackChunkName: "PickUp" */ '../views/PickUp.vue')
   },
   {
     path: '/hall',
     name: 'hall',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Hall.vue')
+    component: () => import(/* webpackChunkName: "Hall" */ '../views/Hall.vue')
   },
   {
     path: '/hallInfo',
     name: 'hallInfo',
-    component: () => import(/* webpackChunkName: "about" */ '../views/HallInfo.vue')
+    component: () => import(/* webpackChunkName: "HallInfo" */ '../views/HallInfo.vue')
   },
   {
     path: '/admin/login',
